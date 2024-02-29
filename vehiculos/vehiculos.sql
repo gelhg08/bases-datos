@@ -35,3 +35,5 @@ WHERE
     vehiculos.id_vehiculo = tipo_vehiculo.id
     AND vehiculos.id_color = colores.id
     AND tipo_vehiculo.id_marca = marcas.id
+
+
