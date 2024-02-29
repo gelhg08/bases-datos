@@ -1,5 +1,9 @@
+-- Active: 1709121212748@@bwjid22hotjlyzj5lvtq-mysql.services.clever-cloud.com@3306
+SHOW DATABASES
+
+
 CREATE TABLE estudiantes (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    Id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(45),
     apellido VARCHAR(45),
     edad VARCHAR(45),
@@ -10,6 +14,13 @@ CREATE TABLE estudiantes (
 CREATE TABLE materias (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(45),
+)
+
+CREATE TABLE notas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nota DECIMAL(4,2),
+    estudianteId INT,
+    FOREIGN KEY (estudianteId) REFERENCES estudiantes(Id)
 )
 
 INSERT INTO estudiantes (nombre,apellido,edad,correo,telefono) 
