@@ -1,4 +1,4 @@
--- Active: 1709057024495@@bvx4jdsoc1mozxryzzns-mysql.services.clever-cloud.com@3306@bvx4jdsoc1mozxryzzns
+-- Active: 1709293823468@@bvx4jdsoc1mozxryzzns-mysql.services.clever-cloud.com@3306@bvx4jdsoc1mozxryzzns
 SHOW DATABASES
 
 /*1. Listado de todos los usuarios con solo los nombres, apellidos y edad, que tengan 20 años de edad.*/
@@ -66,3 +66,59 @@ SELECT COUNT(id) from users  where pais = 'ecuador'
 
 /*20. Cuántos usuarios son de Colombia y les gusta el vallenato.*/
 SELECT COUNT(id) from users WHERE pais = 'colombia' and musica = 'vallenato'
+
+
+/*EJEMPLOS DE VIEWS*/
+
+/*1. CREAR UNA VISTA */ 
+CREATE VIEW users_view AS 
+SELECT nombres, apellidos, edad, genero
+FROM users
+
+SELECT * FROM users_view;
+
+
+/*2. CREAR UNA VISTA QUE SUME LAS EDADES*/ 
+CREATE VIEW users_edad AS
+SELECT SUM(edad), id
+FROM users
+GROUP BY id
+ORDER BY id DESC
+
+SELECT * from users_edad
+
+/*3 CREAR UNA VISTA QUE MUESTRE LA INFO INDICADA*/
+CREATE VIEW users_resumen AS
+SELECT nombres, edad, correo 
+FROM users
+
+SELECT * FROM users_resumen
+
+/*4 EDITAR UNA VISTA*/
+
+CREATE OR REPLACE VIEW users_view AS
+SELECT nombres,apellidos,edad, genero, musica
+FROM users
+
+
+/*5 ELIMINAR UNA VISTA*/
+
+DROP VIEW users_resumen;
+
+
+/*EJEMPLOS DE PROCEDIMIENTOS ALMACENADOS*/
+
+/*1*/
+DELIMITER $$
+
+CREATE PROCEDURE obtener_edad_deun_estado(IN pais_usuario 
+VARCHAR(255)) 
+BEGIN 
+	SELECT nombres, edad FROM users WHERE pais = pais_usuario;
+END$$ 
+
+DELIMITER;
+
+CALL obtener_edad_deun_estado ('colombia')
+
+SELECT @resultados
